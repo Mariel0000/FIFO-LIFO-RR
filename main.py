@@ -1,3 +1,9 @@
+from fifo import ejecutar_fifo
+from lifo import ejecutar_lifo
+from rr import ejecutar_rr
+from metricas import calcular_metricas
+from prints import imprimir_tabla
+from comparacion import comparar_algoritmos
 import os
 
 def leer_archivo(ruta):
