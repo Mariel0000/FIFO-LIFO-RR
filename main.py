@@ -26,6 +26,8 @@ def main():
     procesos, ti, t = leer_archivo('procesos.txt')
     if procesos is None: return
 
+    q_usuario = int(input("Ingrese el valor del Quantum para Round Robin: "))
+    
     # FIFO
     tf_f = ejecutar_fifo(ti, t)
     T_f, E_f, I_f, pT_f, pE_f, pI_f = calcular_metricas(ti, t, tf_f)
@@ -36,13 +38,17 @@ def main():
     T_l, E_l, I_l, pT_l, pE_l, pI_l = calcular_metricas(ti, t, tf_l)
     imprimir_tabla("LIFO", procesos, ti, t, tf_l, T_l, E_l, I_l, pT_l, pE_l, pI_l)
 
-    # Round Robin (q=4)
-    tf_r = ejecutar_rr(ti, t, q=4)
+    # (ajuste para usar el quantum ingresado por el usuario)
+    tf_r = ejecutar_rr(ti, t, q=q_usuario)
     T_r, E_r, I_r, pT_r, pE_r, pI_r = calcular_metricas(ti, t, tf_r)
-    imprimir_tabla("Round Robin (q=4)", procesos, ti, t, tf_r, T_r, E_r, I_r, pT_r, pE_r, pI_r)
+    imprimir_tabla(f"Round Robin (q={q_usuario})", procesos, ti, t, tf_r, T_r, E_r, I_r, pT_r, pE_r, pI_r)
 
     # Comparación Final
-    res = {"FIFO": pE_f, "LIFO": pE_l, "Round Robin": pE_r}
+    res = {
+        "FIFO": pE_f, 
+        "LIFO": pE_l, 
+        f"Round Robin (q={q_usuario})": pE_r
+    }
     comparar_algoritmos(res)
 
 if __name__ == "__main__":
