@@ -27,7 +27,7 @@ def main():
     if procesos is None: return
 
     q_usuario = int(input("Ingrese el valor del Quantum para Round Robin: "))
-    
+
     # FIFO
     tf_f = ejecutar_fifo(ti, t)
     T_f, E_f, I_f, pT_f, pE_f, pI_f = calcular_metricas(ti, t, tf_f)
@@ -43,13 +43,11 @@ def main():
     T_r, E_r, I_r, pT_r, pE_r, pI_r = calcular_metricas(ti, t, tf_r)
     imprimir_tabla(f"Round Robin (q={q_usuario})", procesos, ti, t, tf_r, T_r, E_r, I_r, pT_r, pE_r, pI_r)
 
-    # Comparación Final
     res = {
-        "FIFO": pE_f, 
-        "LIFO": pE_l, 
-        f"Round Robin (q={q_usuario})": pE_r
+        "FIFO": pI_f, 
+        "LIFO": pI_l, 
+        f"Round Robin (q={q_usuario})": pI_r
     }
     comparar_algoritmos(res)
-
 if __name__ == "__main__":
     main()
